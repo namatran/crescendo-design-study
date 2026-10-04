@@ -14,6 +14,9 @@ const { about } = content;
 /** Native <dialog>: focus trap, Esc to close and inert background come for free. */
 export function AboutModal({ open, onClose }: AboutModalProps) {
   const ref = useRef<HTMLDialogElement>(null);
+  // Close only when the press both started and ended on the backdrop, so a text
+  // selection dragged out of the panel doesn't dismiss it.
+  const pressedBackdrop = useRef(false);
 
   useEffect(() => {
     const dialog = ref.current;
@@ -27,8 +30,12 @@ export function AboutModal({ open, onClose }: AboutModalProps) {
       ref={ref}
       aria-labelledby="about-title"
       onClose={onClose}
-      // A click whose target is the dialog itself landed on the backdrop.
-      onClick={(e) => e.target === e.currentTarget && onClose()}
+      // A pointer event whose target is the dialog itself is on the backdrop.
+      onPointerDown={(e) => (pressedBackdrop.current = e.target === e.currentTarget)}
+      onClick={(e) => {
+        if (pressedBackdrop.current && e.target === e.currentTarget) onClose();
+        pressedBackdrop.current = false;
+      }}
       className="about-modal m-auto max-h-[90dvh] w-[90%] max-w-2xl overflow-y-auto rounded-2xl bg-white p-0 text-gray-700 shadow-2xl"
     >
       <div className="relative p-8">

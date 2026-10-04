@@ -36,6 +36,8 @@ export const content = {
       "Hush is an unofficial design study of crescendomusic.live, rebuilt from scratch with original code, copy and artwork. It is not affiliated with Crescendo.",
   },
   footer: {
+    // Fixed rather than computed: the page is prerendered, so a computed year would mismatch on hydration.
+    year: 2026,
     line: "Quiet music for deep work",
     credit: "Unofficial design study of crescendomusic.live. Not affiliated.",
   },

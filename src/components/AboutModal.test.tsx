@@ -35,7 +35,17 @@ describe("AboutModal", () => {
     render(<AboutModal open onClose={onClose} />);
     fireEvent.click(screen.getByRole("heading", { name: "About Hush" }));
     expect(onClose).not.toHaveBeenCalled();
-    fireEvent.click(screen.getByRole("dialog"));
+    const dialog = screen.getByRole("dialog");
+    fireEvent.pointerDown(dialog);
+    fireEvent.click(dialog);
     expect(onClose).toHaveBeenCalled();
+  });
+
+  it("ignores a drag that starts in the panel and ends on the backdrop", () => {
+    const onClose = vi.fn();
+    render(<AboutModal open onClose={onClose} />);
+    fireEvent.pointerDown(screen.getByRole("heading", { name: "About Hush" }));
+    fireEvent.click(screen.getByRole("dialog"));
+    expect(onClose).not.toHaveBeenCalled();
   });
 });
