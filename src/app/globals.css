@@ -9,3 +9,22 @@ body {
   color: #fff;
   font-family: var(--font-sans);
 }
+
+/* Time-of-day gradients; stops come from the theme custom properties. */
+.theme-gradient-br {
+  background-image: linear-gradient(
+    to bottom right,
+    var(--theme-primary),
+    var(--theme-accent),
+    var(--theme-secondary)
+  );
+}
+
+.theme-gradient-r {
+  background-image: linear-gradient(
+    to right,
+    var(--theme-primary),
+    var(--theme-accent),
+    var(--theme-secondary)
+  );
+}
