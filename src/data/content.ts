@@ -5,6 +5,10 @@ export const content = {
   player: {
     play: "Play",
     pause: "Pause",
+    next: "Next track",
+    shuffle: "Shuffle",
+    shuffleOn: "Shuffle on",
+    shuffleOff: "Shuffle off",
     loop: "Loop track",
     loopOn: "Loop on",
     loopOff: "Loop off",

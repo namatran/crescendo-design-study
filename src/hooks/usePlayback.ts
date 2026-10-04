@@ -10,9 +10,12 @@ import { clamp } from "@/lib/time";
 export interface PlaybackOptions {
   volume: number;
   loop: boolean;
+  /** Start as soon as the source can play (used when advancing tracks). */
+  autoPlay?: boolean;
+  onEnded?: () => void;
 }
 
-export function usePlayback(src: string, { volume, loop }: PlaybackOptions) {
+export function usePlayback(src: string, { volume, loop, autoPlay = false, onEnded }: PlaybackOptions) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -52,10 +55,15 @@ export function usePlayback(src: string, { volume, loop }: PlaybackOptions) {
     src,
     preload: "metadata" as const,
     loop,
+    autoPlay,
     onPlay: () => setIsPlaying(true),
     onPause: () => setIsPlaying(false),
     onTimeUpdate: (e: React.SyntheticEvent<HTMLAudioElement>) => setCurrentTime(e.currentTarget.currentTime),
     onLoadedMetadata: (e: React.SyntheticEvent<HTMLAudioElement>) => setDuration(e.currentTarget.duration),
+    onEnded: () => {
+      setIsPlaying(false);
+      onEnded?.();
+    },
     onError: () => {
       setError(true);
       setIsPlaying(false);

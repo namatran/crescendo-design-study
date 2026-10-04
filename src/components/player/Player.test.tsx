@@ -5,10 +5,12 @@ import { songs } from "@/data/songs";
 import { Player, type PlayerSettings } from "./Player";
 
 const song = songs[0];
-const settings: PlayerSettings = { volume: 0.75, loop: false };
+const settings: PlayerSettings = { volume: 0.75, loop: false, shuffle: true };
 
-function renderPlayer(overrides: Partial<PlayerSettings> = {}, onSettingsChange = vi.fn()) {
-  render(<Player song={song} settings={{ ...settings, ...overrides }} onSettingsChange={onSettingsChange} />);
+function renderPlayer(overrides: Partial<PlayerSettings> = {}, onSettingsChange = vi.fn(), onNext = vi.fn()) {
+  render(
+    <Player song={song} settings={{ ...settings, ...overrides }} onSettingsChange={onSettingsChange} onNext={onNext} />,
+  );
   return onSettingsChange;
 }
 
@@ -83,5 +85,25 @@ describe("Player", () => {
     expect(button).toHaveAttribute("aria-pressed", "true");
     await userEvent.click(button);
     expect(onChange).toHaveBeenCalledWith({ loop: false });
+  });
+
+  it("advances and autoplays when a track ends", () => {
+    const onNext = vi.fn();
+    renderPlayer({}, vi.fn(), onNext);
+    fireEvent(document.querySelector("audio")!, new Event("ended"));
+    expect(onNext).toHaveBeenCalledWith(true);
+  });
+
+  it("skips without autoplay while paused", async () => {
+    const onNext = vi.fn();
+    renderPlayer({}, vi.fn(), onNext);
+    await userEvent.click(screen.getByRole("button", { name: "Next track" }));
+    expect(onNext).toHaveBeenCalledWith(false);
+  });
+
+  it("toggles shuffle", async () => {
+    const onChange = renderPlayer({ shuffle: true });
+    await userEvent.click(screen.getByRole("button", { name: "Shuffle" }));
+    expect(onChange).toHaveBeenCalledWith({ shuffle: false });
   });
 });

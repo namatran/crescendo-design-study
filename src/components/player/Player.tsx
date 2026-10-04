@@ -1,6 +1,6 @@
 "use client";
 
-import { Pause, Play, Repeat, Volume2, VolumeX } from "lucide-react";
+import { Pause, Play, Repeat, Shuffle, SkipForward, Volume2, VolumeX } from "lucide-react";
 import { CoverArt } from "@/components/CoverArt";
 import { content } from "@/data/content";
 import type { Song } from "@/data/songs";
@@ -14,17 +14,26 @@ export const iconButton =
 export interface PlayerSettings {
   volume: number;
   loop: boolean;
+  shuffle: boolean;
 }
 
 interface PlayerProps {
   song: Song;
   settings: PlayerSettings;
   onSettingsChange: (next: Partial<PlayerSettings>) => void;
+  /** Advance to the next track; `autoPlay` says whether it should start on its own. */
+  onNext: (autoPlay: boolean) => void;
+  autoPlay?: boolean;
 }
 
-export function Player({ song, settings, onSettingsChange }: PlayerProps) {
-  const { volume, loop } = settings;
-  const { audioProps, isPlaying, currentTime, duration, error, toggle, seek } = usePlayback(audioUrl(song), settings);
+export function Player({ song, settings, onSettingsChange, onNext, autoPlay = false }: PlayerProps) {
+  const { volume, loop, shuffle } = settings;
+  const { audioProps, isPlaying, currentTime, duration, error, toggle, seek } = usePlayback(audioUrl(song), {
+    volume,
+    loop,
+    autoPlay,
+    onEnded: () => onNext(true),
+  });
   const VolumeIcon = volume === 0 ? VolumeX : Volume2;
 
   return (
@@ -49,7 +58,7 @@ export function Player({ song, settings, onSettingsChange }: PlayerProps) {
 
         <div className="space-y-4">
           <ProgressBar currentTime={currentTime} duration={duration} onSeek={seek} />
-          <div className="-ml-2 flex items-center gap-4">
+          <div className="-ml-2 flex items-center gap-2">
             <button
               type="button"
               onClick={toggle}
@@ -58,6 +67,26 @@ export function Player({ song, settings, onSettingsChange }: PlayerProps) {
               className={`${iconButton} p-2.5 disabled:opacity-40`}
             >
               {isPlaying ? <Pause size={24} /> : <Play size={24} />}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => onNext(isPlaying)}
+              aria-label={content.player.next}
+              className={`${iconButton} p-2 text-[var(--soft)]`}
+            >
+              <SkipForward size={20} />
+            </button>
+
+            <button
+              type="button"
+              onClick={() => onSettingsChange({ shuffle: !shuffle })}
+              aria-label={content.player.shuffle}
+              aria-pressed={shuffle}
+              title={shuffle ? content.player.shuffleOn : content.player.shuffleOff}
+              className={`${iconButton} p-2 ${shuffle ? "text-[var(--theme-accent)]" : "text-[var(--faint)]"}`}
+            >
+              <Shuffle size={20} />
             </button>
 
             <button
