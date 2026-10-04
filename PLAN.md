@@ -35,7 +35,7 @@ website. Audio stays out of git.
 - [x] feat: show track credit in the player
 - [x] feat: add dark mode toggle
 - [x] feat: add about modal
-- [ ] style: tune phone layout and reduced motion
+- [x] style: tune phone layout and reduced motion
 - [ ] docs: add readme with handoff prompt
 
 ## Needs the owner

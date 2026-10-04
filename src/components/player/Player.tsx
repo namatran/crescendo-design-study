@@ -38,16 +38,16 @@ export function Player({ song, settings, onSettingsChange, onNext, autoPlay = fa
   const VolumeIcon = volume === 0 ? VolumeX : Volume2;
 
   return (
-    <div className="flex w-[90%] max-w-2xl flex-col gap-3">
+    <div className="flex w-full max-w-2xl flex-col gap-3 sm:w-[90%]">
       <section
         aria-label="Player"
-        className="player flex gap-6 rounded-2xl bg-[var(--surface)] p-6 text-[var(--ink)] shadow-xl backdrop-blur-sm"
+        className="player flex flex-col gap-5 rounded-2xl bg-[var(--surface)] p-5 sm:flex-row sm:gap-6 sm:p-6 text-[var(--ink)] shadow-xl backdrop-blur-sm"
       >
-        <div className="h-44 w-44 flex-shrink-0">
+        <div className="mx-auto aspect-square w-full max-w-56 flex-shrink-0 sm:h-44 sm:w-44">
           <CoverArt seed={song.id} label={`Cover for ${song.title}`} />
         </div>
 
-        <div className="flex min-w-0 flex-1 flex-col justify-between">
+        <div className="flex min-w-0 flex-1 flex-col justify-between gap-4 sm:gap-0">
           <div>
             <h2 className="mb-1 truncate text-2xl font-bold">{song.title}</h2>
             <p className="text-base text-[var(--muted)]">{song.artist}</p>
@@ -60,7 +60,7 @@ export function Player({ song, settings, onSettingsChange, onNext, autoPlay = fa
 
           <div className="space-y-4">
             <ProgressBar currentTime={currentTime} duration={duration} onSeek={seek} />
-            <div className="-ml-2 flex items-center gap-2">
+            <div className="-ml-2 flex flex-wrap items-center gap-x-2 gap-y-3">
               <button
                 type="button"
                 onClick={toggle}
@@ -102,7 +102,7 @@ export function Player({ song, settings, onSettingsChange, onNext, autoPlay = fa
                 <Repeat size={20} />
               </button>
 
-              <label className="ml-2 flex flex-1 items-center gap-3">
+              <label className="flex basis-full items-center gap-3 pl-2 sm:ml-2 sm:flex-1 sm:basis-auto sm:pl-0">
                 <VolumeIcon size={20} aria-hidden className="flex-shrink-0 text-[var(--soft)]" />
                 <span className="sr-only">{content.player.volume}</span>
                 <input

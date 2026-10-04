@@ -18,7 +18,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         className="flex min-h-[70vh] w-[90%] max-w-3xl flex-col overflow-hidden rounded-2xl border border-white/20 bg-white/20 shadow-2xl backdrop-blur-md"
       >
         <Header darkMode={darkMode} onToggleDark={() => setDarkMode(!darkMode)} onAboutClick={() => setAboutOpen(true)} />
-        <main className="flex flex-1 items-center justify-center p-8">{children}</main>
+        <main className="flex flex-1 items-center justify-center p-4 sm:p-8">{children}</main>
         <Footer />
       </div>
       <AboutModal open={aboutOpen} onClose={() => setAboutOpen(false)} />
