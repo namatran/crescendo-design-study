@@ -2,9 +2,15 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { songs } from "@/data/songs";
-import { Player } from "./Player";
+import { Player, type PlayerSettings } from "./Player";
 
 const song = songs[0];
+const settings: PlayerSettings = { volume: 0.75, loop: false };
+
+function renderPlayer(overrides: Partial<PlayerSettings> = {}, onSettingsChange = vi.fn()) {
+  render(<Player song={song} settings={{ ...settings, ...overrides }} onSettingsChange={onSettingsChange} />);
+  return onSettingsChange;
+}
 
 beforeEach(() => {
   // jsdom has no media playback: fake play/pause and fire the events a browser would.
@@ -28,14 +34,14 @@ function loadMetadata(seconds: number) {
 
 describe("Player", () => {
   it("shows the track and points the audio at its file", () => {
-    render(<Player song={song} />);
+    renderPlayer();
     expect(screen.getByRole("heading", { name: song.title })).toBeInTheDocument();
     expect(screen.getByText(song.artist)).toBeInTheDocument();
     expect(document.querySelector("audio")?.getAttribute("src")).toBe(`/audio/${song.file}`);
   });
 
   it("toggles play and pause", async () => {
-    render(<Player song={song} />);
+    renderPlayer();
     await userEvent.click(screen.getByRole("button", { name: "Play" }));
     expect(screen.getByRole("button", { name: "Pause" })).toBeInTheDocument();
     await userEvent.click(screen.getByRole("button", { name: "Pause" }));
@@ -43,7 +49,7 @@ describe("Player", () => {
   });
 
   it("shows duration and seeks with the keyboard", () => {
-    render(<Player song={song} />);
+    renderPlayer();
     const audio = loadMetadata(120);
     expect(screen.getByText("02:00")).toBeInTheDocument();
 
@@ -57,9 +63,25 @@ describe("Player", () => {
   });
 
   it("explains a missing audio file", () => {
-    render(<Player song={song} />);
+    renderPlayer();
     fireEvent(document.querySelector("audio")!, new Event("error"));
     expect(screen.getByRole("alert")).toHaveTextContent("public/audio/");
     expect(screen.getByRole("button", { name: "Play" })).toBeDisabled();
+  });
+
+  it("applies volume to the audio element and reports changes", () => {
+    const onChange = renderPlayer({ volume: 0.4 });
+    expect(document.querySelector("audio")!.volume).toBeCloseTo(0.4);
+    fireEvent.change(screen.getByRole("slider", { name: "Volume" }), { target: { value: "0.2" } });
+    expect(onChange).toHaveBeenCalledWith({ volume: 0.2 });
+  });
+
+  it("toggles loop and reflects it on the audio element", async () => {
+    const onChange = renderPlayer({ loop: true });
+    expect(document.querySelector("audio")!.loop).toBe(true);
+    const button = screen.getByRole("button", { name: "Loop track" });
+    expect(button).toHaveAttribute("aria-pressed", "true");
+    await userEvent.click(button);
+    expect(onChange).toHaveBeenCalledWith({ loop: false });
   });
 });

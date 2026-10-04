@@ -1,18 +1,27 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { clamp } from "@/lib/time";
 
 /**
  * Drives one <audio> element. The element is the source of truth: state mirrors
  * its events, and actions call its methods. Remount (key by track) to reset.
  */
-export function usePlayback(src: string) {
+export interface PlaybackOptions {
+  volume: number;
+  loop: boolean;
+}
+
+export function usePlayback(src: string, { volume, loop }: PlaybackOptions) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.volume = clamp(volume, 0, 1);
+  }, [volume]);
 
   const play = useCallback(async () => {
     const audio = audioRef.current;
@@ -42,6 +51,7 @@ export function usePlayback(src: string) {
     ref: audioRef,
     src,
     preload: "metadata" as const,
+    loop,
     onPlay: () => setIsPlaying(true),
     onPause: () => setIsPlaying(false),
     onTimeUpdate: (e: React.SyntheticEvent<HTMLAudioElement>) => setCurrentTime(e.currentTarget.currentTime),

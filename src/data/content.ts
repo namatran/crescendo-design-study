@@ -5,6 +5,10 @@ export const content = {
   player: {
     play: "Play",
     pause: "Pause",
+    loop: "Loop track",
+    loopOn: "Loop on",
+    loopOff: "Loop off",
+    volume: "Volume",
     missing: "Audio file not found. Add it to public/audio/ (see README).",
   },
   footer: {

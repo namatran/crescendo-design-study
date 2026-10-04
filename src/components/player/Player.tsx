@@ -1,6 +1,6 @@
 "use client";
 
-import { Pause, Play } from "lucide-react";
+import { Pause, Play, Repeat, Volume2, VolumeX } from "lucide-react";
 import { CoverArt } from "@/components/CoverArt";
 import { content } from "@/data/content";
 import type { Song } from "@/data/songs";
@@ -11,8 +11,21 @@ import { ProgressBar } from "./ProgressBar";
 export const iconButton =
   "rounded-full transition duration-150 hover:bg-[var(--hover)] active:scale-95 focus-visible:outline-2 focus-visible:outline-[var(--theme-accent)] motion-reduce:active:scale-100";
 
-export function Player({ song }: { song: Song }) {
-  const { audioProps, isPlaying, currentTime, duration, error, toggle, seek } = usePlayback(audioUrl(song));
+export interface PlayerSettings {
+  volume: number;
+  loop: boolean;
+}
+
+interface PlayerProps {
+  song: Song;
+  settings: PlayerSettings;
+  onSettingsChange: (next: Partial<PlayerSettings>) => void;
+}
+
+export function Player({ song, settings, onSettingsChange }: PlayerProps) {
+  const { volume, loop } = settings;
+  const { audioProps, isPlaying, currentTime, duration, error, toggle, seek } = usePlayback(audioUrl(song), settings);
+  const VolumeIcon = volume === 0 ? VolumeX : Volume2;
 
   return (
     <section
@@ -46,6 +59,32 @@ export function Player({ song }: { song: Song }) {
             >
               {isPlaying ? <Pause size={24} /> : <Play size={24} />}
             </button>
+
+            <button
+              type="button"
+              onClick={() => onSettingsChange({ loop: !loop })}
+              aria-label={content.player.loop}
+              aria-pressed={loop}
+              title={loop ? content.player.loopOn : content.player.loopOff}
+              className={`${iconButton} p-2 ${loop ? "text-[var(--theme-accent)]" : "text-[var(--faint)]"}`}
+            >
+              <Repeat size={20} />
+            </button>
+
+            <label className="ml-2 flex flex-1 items-center gap-3">
+              <VolumeIcon size={20} aria-hidden className="flex-shrink-0 text-[var(--soft)]" />
+              <span className="sr-only">{content.player.volume}</span>
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.01}
+                value={volume}
+                onChange={(e) => onSettingsChange({ volume: Number(e.target.value) })}
+                className="volume-range h-1.5 flex-1 cursor-pointer appearance-none rounded-lg"
+                style={{ "--fill": `${volume * 100}%` } as React.CSSProperties}
+              />
+            </label>
           </div>
         </div>
       </div>
