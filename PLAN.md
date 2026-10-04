@@ -26,7 +26,7 @@ website. Audio stays out of git.
 - [x] chore: scaffold next.js app with tailwind and vitest
 - [x] docs: add design references for the study
 - [x] feat: add time-of-day theme engine
-- [ ] feat: add glass shell with header and footer
+- [x] feat: add glass shell with header and footer
 - [ ] feat: add song library with license metadata
 - [ ] feat: add generative cover art
 - [ ] feat: add audio player with play/pause and seek

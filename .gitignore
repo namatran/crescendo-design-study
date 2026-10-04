@@ -43,3 +43,6 @@ next-env.d.ts
 # audio files are licensed third-party tracks: never commit them
 /public/audio/*
 !/public/audio/.gitkeep
+
+# local claude tooling
+/.claude/

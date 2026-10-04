@@ -1,9 +1,10 @@
-import { ThemeBackdrop } from "@/components/ThemeBackdrop";
+import { AppShell } from "@/components/AppShell";
+import { content } from "@/data/content";
 
 export default function Home() {
   return (
-    <ThemeBackdrop>
-      <p className="text-lg">Hush</p>
-    </ThemeBackdrop>
+    <AppShell>
+      <p className="text-lg text-white">{content.loading}</p>
+    </AppShell>
   );
 }
