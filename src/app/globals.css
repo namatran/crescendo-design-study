@@ -90,3 +90,37 @@ body {
   outline: 2px solid var(--theme-accent);
   outline-offset: 4px;
 }
+
+/* About modal: soft blurred backdrop, gentle fade/rise on open. */
+.about-modal::backdrop {
+  background: rgb(0 0 0 / 0.2);
+  backdrop-filter: blur(4px);
+}
+
+.about-modal[open] {
+  animation: modal-in 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.about-modal[open]::backdrop {
+  animation: fade-in 200ms ease-out;
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-modal[open],
+  .about-modal[open]::backdrop {
+    animation: none;
+  }
+}
