@@ -36,7 +36,7 @@ website. Audio stays out of git.
 - [x] feat: add dark mode toggle
 - [x] feat: add about modal
 - [x] style: tune phone layout and reduced motion
-- [ ] docs: add readme with handoff prompt
+- [x] docs: add readme with handoff prompt
 
 ## Needs the owner
 - [ ] Approve each track download (official description links only) into `public/audio/`
