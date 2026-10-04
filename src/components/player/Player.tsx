@@ -52,7 +52,7 @@ export function Player({ song, settings, onSettingsChange, onNext, autoPlay = fa
             <h2 className="mb-1 truncate text-2xl font-bold">{song.title}</h2>
             <p className="text-base text-[var(--muted)]">{song.artist}</p>
             {error && (
-              <p role="alert" className="mt-2 text-sm text-red-600">
+              <p role="alert" className="mt-2 text-sm text-[var(--danger)]">
                 {content.player.missing}
               </p>
             )}

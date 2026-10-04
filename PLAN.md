@@ -33,7 +33,7 @@ website. Audio stays out of git.
 - [x] feat: add volume and loop controls
 - [x] feat: add shuffle and auto-advance
 - [x] feat: show track credit in the player
-- [ ] feat: add dark mode toggle
+- [x] feat: add dark mode toggle
 - [ ] feat: add about modal
 - [ ] style: tune phone layout and reduced motion
 - [ ] docs: add readme with handoff prompt

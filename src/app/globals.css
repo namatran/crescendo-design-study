@@ -29,7 +29,7 @@ body {
   );
 }
 
-/* Player surface tokens (light). Dark mode overrides these on .player-dark. */
+/* Player surface tokens. The header toggle sets data-dark-player on the card. */
 .player {
   --surface: rgb(255 255 255 / 0.9);
   --ink: #111827;
@@ -38,6 +38,25 @@ body {
   --hover: #f3f4f6;
   --faint: #9ca3af;
   --soft: #4b5563;
+  --danger: #dc2626;
+  transition: background-color 200ms, color 200ms;
+}
+
+[data-dark-player] .player {
+  --surface: rgb(17 24 39 / 0.85);
+  --ink: #f9fafb;
+  --muted: #9ca3af;
+  --track: #374151;
+  --hover: rgb(255 255 255 / 0.08);
+  --faint: #6b7280;
+  --soft: #d1d5db;
+  --danger: #f87171;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .player {
+    transition: none;
+  }
 }
 
 /* Accent fill up to the value, neutral track after it. */
