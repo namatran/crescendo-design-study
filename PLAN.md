@@ -27,7 +27,7 @@ website. Audio stays out of git.
 - [x] docs: add design references for the study
 - [x] feat: add time-of-day theme engine
 - [x] feat: add glass shell with header and footer
-- [ ] feat: add song library with license metadata
+- [x] feat: add song library with license metadata
 - [ ] feat: add generative cover art
 - [ ] feat: add audio player with play/pause and seek
 - [ ] feat: add volume and loop controls
