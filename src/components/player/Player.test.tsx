@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { songs } from "@/data/songs";
@@ -38,7 +38,7 @@ describe("Player", () => {
   it("shows the track and points the audio at its file", () => {
     renderPlayer();
     expect(screen.getByRole("heading", { name: song.title })).toBeInTheDocument();
-    expect(screen.getByText(song.artist)).toBeInTheDocument();
+    expect(within(screen.getByRole("region", { name: "Player" })).getByText(song.artist)).toBeInTheDocument();
     expect(document.querySelector("audio")?.getAttribute("src")).toBe(`/audio/${song.file}`);
   });
 
@@ -105,5 +105,13 @@ describe("Player", () => {
     const onChange = renderPlayer({ shuffle: true });
     await userEvent.click(screen.getByRole("button", { name: "Shuffle" }));
     expect(onChange).toHaveBeenCalledWith({ shuffle: false });
+  });
+
+  it("credits title, artist and license with links", () => {
+    renderPlayer();
+    expect(screen.getByRole("link", { name: song.title })).toHaveAttribute("href", song.sourceUrl);
+    expect(screen.getByRole("link", { name: song.artist })).toHaveAttribute("href", song.artistUrl);
+    expect(screen.getByRole("link", { name: song.license.name })).toHaveAttribute("href", song.license.url);
+    expect(screen.getByRole("link", { name: /BreakingCopyright/ })).toHaveAttribute("href", song.videoUrl);
   });
 });

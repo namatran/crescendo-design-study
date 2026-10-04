@@ -32,7 +32,7 @@ website. Audio stays out of git.
 - [x] feat: add audio player with play/pause and seek
 - [x] feat: add volume and loop controls
 - [x] feat: add shuffle and auto-advance
-- [ ] feat: show track credit in the player
+- [x] feat: show track credit in the player
 - [ ] feat: add dark mode toggle
 - [ ] feat: add about modal
 - [ ] style: tune phone layout and reduced motion

@@ -13,6 +13,7 @@ export const content = {
     loopOn: "Loop on",
     loopOff: "Loop off",
     volume: "Volume",
+    poweredBy: "via BreakingCopyright",
     missing: "Audio file not found. Add it to public/audio/ (see README).",
   },
   footer: {
