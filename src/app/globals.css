@@ -28,3 +28,12 @@ body {
     var(--theme-secondary)
   );
 }
+
+/* Player surface tokens (light). Dark mode overrides these on .player-dark. */
+.player {
+  --surface: rgb(255 255 255 / 0.9);
+  --ink: #111827;
+  --muted: #6b7280;
+  --track: #e5e7eb;
+  --hover: #f3f4f6;
+}

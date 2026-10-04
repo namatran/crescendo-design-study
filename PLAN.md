@@ -29,7 +29,7 @@ website. Audio stays out of git.
 - [x] feat: add glass shell with header and footer
 - [x] feat: add song library with license metadata
 - [x] feat: add generative cover art
-- [ ] feat: add audio player with play/pause and seek
+- [x] feat: add audio player with play/pause and seek
 - [ ] feat: add volume and loop controls
 - [ ] feat: add shuffle and auto-advance
 - [ ] feat: show track credit in the player
