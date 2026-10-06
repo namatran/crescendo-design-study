@@ -10,7 +10,7 @@ is not affiliated with Crescendo. The page ships `noindex` (meta tag,
 ## Stack
 
 Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · lucide-react.
-Tests: Vitest + Testing Library (jsdom). There is no backend: the page is static, and
+Tests: Vitest + Testing Library (jsdom), Playwright for e2e (audio is stubbed with a silent WAV). There is no backend: the page is static, and
 audio is plain files.
 
 ## Run
@@ -19,6 +19,7 @@ audio is plain files.
 npm install
 npm run dev        # http://localhost:4337
 npm test           # unit + component tests
+npm run test:e2e   # Playwright e2e (first run: npx playwright install chromium)
 npm run typecheck
 npm run lint
 npm run build && npm start
@@ -58,6 +59,7 @@ URL. No code changes are needed.
 | `PLAN.md` | Architecture, music rule, feature checklist (one commit each) |
 | `CLAUDE.md` | Commands and conventions for Claude Code sessions |
 | `docs/DESIGN-REFS.md` | Phase 1 measurements: sections, type, theme palettes, spacing, components, motion |
+| `e2e/` | Playwright specs; `silentAudio.ts` stubs `/audio/*` with a silent WAV |
 | `docs/PROMPT.md` | The reusable prompt for the next design study |
 | `src/data/content.ts` | Every user-facing string |
 | `src/data/songs.ts` | Track list with source and license metadata |
@@ -93,6 +95,5 @@ commit each:
 1. Once I confirm, add the four audio files to public/audio/ from their
    sourceUrl (official BreakingCopyright pages only) and check that every track plays.
 2. chore: serve audio from vercel blob (upload the files, set NEXT_PUBLIC_AUDIO_BASE_URL).
-3. test: add a Playwright e2e test for play, seek, next and the modal.
 Run test, typecheck, lint and build before each commit. Never push without asking.
 ```

@@ -38,6 +38,7 @@ website. Audio stays out of git.
 - [x] style: tune phone layout and reduced motion
 - [x] docs: add readme with handoff prompt
 - [x] fix: remove the night-theme flash with a pre-paint script
+- [x] test: add playwright e2e for play, seek, next and the modal
 
 ## Needs the owner
 - [ ] Approve each track download (official description links only) into `public/audio/`

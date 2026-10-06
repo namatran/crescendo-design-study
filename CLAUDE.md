@@ -9,6 +9,7 @@ reference's images, audio, logos or text. See `docs/DESIGN-REFS.md` and `PLAN.md
 ## Commands
 - `npm run dev` → http://localhost:4337
 - `npm test` (Vitest + Testing Library), `npm run typecheck`, `npm run lint`, `npm run build`
+- `npm run test:e2e` (Playwright, Chromium; starts the dev server if it isn't running). Audio is stubbed, so no real tracks needed. First time: `npx playwright install chromium`
 
 ## Conventions
 - One feature from PLAN.md = one Conventional Commit. Tick it off in PLAN.md in the same commit.
