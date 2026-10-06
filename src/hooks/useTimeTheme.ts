@@ -1,21 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getThemeName, type ThemeName } from "@/lib/theme";
+import { useEffect, useLayoutEffect } from "react";
+import { applyTheme, getThemeName } from "@/lib/theme";
+
+// useLayoutEffect warns during SSR; the server render never needs it.
+const useIsomorphicLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 /**
- * Theme from the viewer's clock. Starts as night so the server render and first
- * client render agree, then resolves after mount and re-checks every minute.
+ * Keeps `<html>` on the viewer's time-of-day theme. The first paint is handled by the
+ * inline script in the root layout; this re-applies it after hydration (React Strict Mode
+ * resets `<html>` attributes in dev) and re-checks every minute.
  */
-export function useTimeTheme(): ThemeName {
-  const [theme, setTheme] = useState<ThemeName>("night");
-
-  useEffect(() => {
-    const update = () => setTheme(getThemeName(new Date()));
+export function useTimeTheme(): void {
+  useIsomorphicLayoutEffect(() => {
+    const update = () => applyTheme(document.documentElement, getThemeName(new Date()));
     update();
     const id = setInterval(update, 60_000);
     return () => clearInterval(id);
   }, []);
-
-  return theme;
 }

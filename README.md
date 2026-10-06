@@ -78,8 +78,9 @@ URL. No code changes are needed.
   volume slider wraps to its own row.
 - The moon/sun toggle switches the player card between light and dark (in the
   reference it has no visible effect), and the choice is remembered.
-- The theme starts as night and resolves to the viewer's clock after mount. Morning and
-  afternoon visitors see a brief night frame. An inline pre-paint script would remove it.
+- The server renders the night theme because it can't know the viewer's clock. An inline
+  script in `<head>` (`themeInitScript` in `src/lib/theme.ts`) sets the real theme on `<html>`
+  before first paint, and `useTimeTheme` keeps it current.
 - The live reference's song API currently fails CORS, so its player could only be
   measured from its public source.
 
@@ -92,7 +93,6 @@ commit each:
 1. Once I confirm, add the four audio files to public/audio/ from their
    sourceUrl (official BreakingCopyright pages only) and check that every track plays.
 2. chore: serve audio from vercel blob (upload the files, set NEXT_PUBLIC_AUDIO_BASE_URL).
-3. fix: remove the night-theme flash with a pre-paint inline script.
-4. test: add a Playwright e2e test for play, seek, next and the modal.
+3. test: add a Playwright e2e test for play, seek, next and the modal.
 Run test, typecheck, lint and build before each commit. Never push without asking.
 ```

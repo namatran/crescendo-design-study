@@ -10,8 +10,8 @@ TypeScript, Tailwind v4, lucide-react, Vitest + Testing Library.
 - `NEXT_PUBLIC_AUDIO_BASE_URL` switches audio from `/audio` to a Blob store
   without code changes.
 - Theme is picked on the client from the viewer's local clock (server time would
-  give the wrong theme and a hydration mismatch). Until it resolves, the night
-  palette shows.
+  give the wrong theme and a hydration mismatch). The server renders the night
+  palette and an inline script in `<head>` swaps in the real one before first paint.
 - Pure logic in `src/lib/` (theme, time formatting, shuffle, audio URLs, cover art),
   each with unit tests.
 
@@ -37,6 +37,7 @@ website. Audio stays out of git.
 - [x] feat: add about modal
 - [x] style: tune phone layout and reduced motion
 - [x] docs: add readme with handoff prompt
+- [x] fix: remove the night-theme flash with a pre-paint script
 
 ## Needs the owner
 - [ ] Approve each track download (official description links only) into `public/audio/`
