@@ -27,7 +27,7 @@ npm run build && npm start
 
 ## Music
 
-Tracks are Creative Commons BY releases from the BreakingCopyright channel. Each
+Tracks are free-to-use releases (Creative Commons BY, BY-SA or "YouTube Free") from the BreakingCopyright channel. Each
 one was found through the **📥 Official download link** in its YouTube
 description, which points to its breakingcopyright.com song page. Nothing is
 downloaded from YouTube. `src/data/songs.ts` records each track's title, artist,
@@ -42,14 +42,20 @@ source URL, video URL and license, and the player credits every track with links
 | `sappheiros-dawn.mp3` | Dawn by Sappheiros | CC BY 3.0 |
 | `scott-buckley-filaments.mp3` | Filaments by Scott Buckley | CC BY 3.0 |
 | `savfk-the-grid.mp3` | The Grid by Savfk | CC BY 4.0 |
+| `artificialmusic-nighttime-stroll.mp3` | Nighttime Stroll by Artificial.Music | CC BY 3.0 |
+| `tokyo-music-walker-slowly.mp3` | Slowly by Tokyo Music Walker | CC BY 3.0 |
+| `purrple-cat-warm-horizon.mp3` | Warm Horizon by Purrple Cat | CC BY-SA 3.0 |
+| `supapao-cant-fall-in-love.mp3` | Can't Fall In Love by Supapao | YouTube Free |
+| `tokyo-music-walker-way-home.mp3` | Way Home by Tokyo Music Walker | YouTube Free |
+| `tokyo-music-walker-your-little-wings.mp3` | Your Little Wings by Tokyo Music Walker | YouTube Free |
 
 If a file is missing, the player says so instead of failing silently. To serve the files from
 Vercel Blob later, upload them and set `NEXT_PUBLIC_AUDIO_BASE_URL` to the folder
 URL. No code changes are needed.
 
 > **Open question:** BreakingCopyright's FAQ says compilations are not allowed
-> "even giving credits to each of the artists". Each track's CC BY license
-> permits reuse, but check whether a public multi-track player counts as a
+> "even giving credits to each of the artists". Each track's license
+> permits reuse on the video side, but check whether a public multi-track player counts as a
 > compilation before you deploy it publicly.
 
 ## Where things live

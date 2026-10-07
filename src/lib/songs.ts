@@ -9,5 +9,7 @@ export function audioUrl(song: Song, base = process.env.NEXT_PUBLIC_AUDIO_BASE_U
 
 /** Plain-text credit in the format the license asks for: title, artist, license. */
 export function creditLine(song: Song): string {
-  return `${song.artist} – ${song.title} is under a Creative Commons ${song.license.name.replace(/^CC /, "")} license.`;
+  const name = song.license.name;
+  const license = name.startsWith("CC ") ? `Creative Commons ${name.slice(3)}` : name;
+  return `${song.artist} – ${song.title} is under a ${license} license.`;
 }

@@ -30,7 +30,7 @@ export const content = {
     ],
     musicTitle: "The music",
     music:
-      "Every track is a Creative Commons BY release shared by the BreakingCopyright channel and credited under the player. Thank you to the artists.",
+      "Every track is a free-to-use release (Creative Commons or YouTube Free) shared by the BreakingCopyright channel and credited under the player. Thank you to the artists.",
     studyTitle: "About this project",
     study:
       "Hush is an unofficial design study of crescendomusic.live, rebuilt from scratch with original code, copy and artwork. It is not affiliated with Crescendo.",

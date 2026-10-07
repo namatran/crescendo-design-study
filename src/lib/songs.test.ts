@@ -25,12 +25,18 @@ describe("creditLine", () => {
   it("names artist, title and license", () => {
     expect(creditLine(song)).toBe("Sappheiros – Embrace is under a Creative Commons BY 3.0 license.");
   });
+
+  it("keeps non-Creative Commons license names as written", () => {
+    const free: Song = { ...song, license: { name: "YouTube Free", url: song.sourceUrl } };
+    expect(creditLine(free)).toBe("Sappheiros – Embrace is under a YouTube Free license.");
+  });
 });
 
 describe("song library", () => {
-  it("only lists Creative Commons BY tracks from official BreakingCopyright pages", () => {
+  it("only lists CC BY, CC BY-SA or YouTube Free tracks from official BreakingCopyright pages", () => {
     for (const s of songs) {
-      expect(s.license.url).toMatch(/^https:\/\/creativecommons\.org\/licenses\/by\//);
+      if (s.license.name === "YouTube Free") expect(s.license.url).toBe(s.sourceUrl);
+      else expect(s.license.url).toMatch(/^https:\/\/creativecommons\.org\/licenses\/by(-sa)?\//);
       expect(s.sourceUrl).toMatch(/^https:\/\/breakingcopyright\.com\/song\//);
     }
   });

@@ -41,5 +41,5 @@ website. Audio stays out of git.
 - [x] test: add playwright e2e for play, seek, next and the modal
 
 ## Needs the owner
-- [ ] Approve each track download (official description links only) into `public/audio/`
+- [x] Approve each track download (official description links only) into `public/audio/`
 - [ ] Vercel Blob store + token, then `chore: serve audio from vercel blob`

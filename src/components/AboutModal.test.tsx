@@ -20,7 +20,7 @@ describe("AboutModal", () => {
     const dialog = screen.getByRole("dialog", { name: "About Hush" });
     expect(dialog).toHaveAttribute("open");
     expect(dialog).toHaveTextContent("unofficial design study");
-    expect(dialog).toHaveTextContent("Creative Commons BY");
+    expect(dialog).toHaveTextContent("Creative Commons or YouTube Free");
   });
 
   it("closes from the close button", async () => {
