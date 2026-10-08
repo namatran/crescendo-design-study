@@ -6,7 +6,7 @@ TypeScript, Tailwind v4, lucide-react, Vitest + Testing Library.
 
 ## Architecture
 - Static, client-rendered player. No backend: the track list is a typed module,
-  audio is static files (`public/audio/` now, Vercel Blob later).
+  audio is static files (`public/audio/` locally, the `hush-audio` Vercel Blob store when deployed).
 - `NEXT_PUBLIC_AUDIO_BASE_URL` switches audio from `/audio` to a Blob store
   without code changes.
 - Theme is picked on the client from the viewer's local clock (server time would
@@ -42,4 +42,4 @@ website. Audio stays out of git.
 
 ## Needs the owner
 - [x] Approve each track download (official description links only) into `public/audio/`
-- [ ] Vercel Blob store + token, then `chore: serve audio from vercel blob`
+- [x] Vercel Blob store + token, then `chore: serve audio from vercel blob`

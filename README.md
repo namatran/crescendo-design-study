@@ -49,9 +49,12 @@ source URL, video URL and license, and the player credits every track with links
 | `tokyo-music-walker-way-home.mp3` | Way Home by Tokyo Music Walker | YouTube Free |
 | `tokyo-music-walker-your-little-wings.mp3` | Your Little Wings by Tokyo Music Walker | YouTube Free |
 
-If a file is missing, the player says so instead of failing silently. To serve the files from
-Vercel Blob later, upload them and set `NEXT_PUBLIC_AUDIO_BASE_URL` to the folder
-URL. No code changes are needed.
+If a file is missing, the player says so instead of failing silently. Deployed builds
+serve the files from the public `hush-audio` Vercel Blob store: upload each file under
+`audio/` with `vercel blob put <file> --access public --pathname audio/<file>`, and set
+`NEXT_PUBLIC_AUDIO_BASE_URL` (production and preview) to
+`https://<store-host>.public.blob.vercel-storage.com/audio`. Local dev keeps using
+`public/audio/`. The variable is inlined at build time, so redeploy after changing it.
 
 > **Open question:** BreakingCopyright's FAQ says compilations are not allowed
 > "even giving credits to each of the artists". Each track's license
